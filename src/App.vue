@@ -36,14 +36,14 @@
       <div class="form-check">
         <label class="form-check-label">
           <input type="radio" class="form-check-input" name="optionsRadios"  
-                value="hombre" checked>
+                value="hombre" checked v-model="usuario.genero">
           Hombre
         </label>
       </div>
       <div class="form-check">
       <label class="form-check-label">
           <input type="radio" class="form-check-input" name="optionsRadios"  
-                value="mujer">
+                value="mujer" v-model="usuario.genero">
           Mujer
         </label>
       </div>
@@ -51,20 +51,20 @@
       </fieldset>
       <div class="form-check">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="acepto">
+          <input type="checkbox" class="form-check-input" value="acepto" v-model="usuario.terminos">
           Acepto las condiciones
         </label>
       </div>
       <div class="form-check">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="newsletter">
+          <input type="checkbox" class="form-check-input" value="newsletter" v-model="usuario.terminos">
           Recibir la newsletter
         </label>
       </div>
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      <button type="submit" class="btn btn-primary" @click.prevent='enviarFormulario'>Enviar</button>
     </form>
     </div>
-    <div class="resultados col-md-6">
+    <div class="resultados col-md-6" v-if="mostrar">
       <h1>Resultados</h1>
       <p><strong>Nombre: </strong> {{ usuario.nombre }} - {{ usuario.nombre.length }}</p>
       <p><strong>Correo Electrónico: </strong> {{ usuario.correo }}</p>
@@ -72,8 +72,8 @@
       <p><strong>Edad: </strong>{{ usuario.edad }} - {{ typeof usuario.edad }}</p>
       <p><strong>País: </strong>{{ usuario.pais }}</p>
       <p class="mensaje"><strong>Mensaje: </strong> {{ usuario.mensaje }}</p>
-      <p><strong>Genero: </strong></p>
-      <p><strong>Condiciones: </strong></p>
+      <p><strong>Genero: </strong> {{ usuario.genero }}</p>
+      <p><strong>Condiciones: </strong> {{ usuario.terminos }}</p>
     </div>
   </div>
 </template>
@@ -90,15 +90,24 @@ export default {
         pais : '',
         mensaje : '',
         genero : '',
+        terminos: []
       },
+      mostrar: false,
       paises : ['Mexico', 'Espania', 'Estados Unidos', 'Venezuela']
 
+    }
+  },
+  methods: {
+    enviarFormulario(){
+        this.mostrar = true
     }
   }
 }
 </script>
 
 <style>
- 
+  .mensaje{
+    white-space: pre;
+  }
 
 </style>
